@@ -44,11 +44,27 @@ It's possible to launch melonDS from third part frontends. For that, you simply 
 To build the project you will need Android SDK, NDK and CMake.
 
 ## Build steps:
-1.  Clone the project, including submodules with:
+1. Clone the project, including submodules with:
     
     `git clone --recurse-submodules https://github.com/rafaelvcaetano/melonDS-android.git`
-2.  Install the Android SDK, NDK and CMake
-3.  Build with:
-    1.  Unix: `./gradlew :app:assembleGitHubRelease`
-    2.  Windows: `gradlew.bat :app:assembleGitHubRelease`
-4.  The generated APK can be found at `app/gitHub/release`
+2. Install the Android SDK, NDK and CMake
+3. Setup keystore properties in `local.properties`, located in the project's root directory:
+   ```
+   MELONDS_KEYSTORE=<path_to_keystore_file>
+   MELONDS_KEYSTORE_PASSWORD=<keystore_password>
+   MELONDS_KEY_ALIAS=<key_alias>
+   MELONDS_KEY_PASSWORD=<key_password>
+   ```
+   For release builds you will need to create your own keystore. The following StackOverflow post can be used as an example, showing multiple ways of doing it. https://stackoverflow.com/questions/3997748/how-can-i-create-a-keystore
+   <br><br>
+   For debug builds you can use the debug keystore included with the Android SDK. To use the debug keystore, replace the placeholders above with the following values:
+
+   * `<path_to_keystore_file>`: Varies depending on OS. For Windows, it's: C:\Users\USERNAME\.android\debug.keystore. Replace USERNAME with your PC's username
+   * `keystore_password`: android
+   * `key_alias`: androiddebugkey
+   * `key_password`: android
+
+4. Build with:
+    1. Unix: `./gradlew :app:assembleGitHubRelease`
+    2. Windows: `gradlew.bat :app:assembleGitHubRelease`
+5. The generated APK can be found at `app/gitHub/release`
